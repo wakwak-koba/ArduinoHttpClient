@@ -306,6 +306,7 @@ public:
     */
     virtual int read();
     virtual int read(uint8_t *buf, size_t size);
+    virtual size_t readBytes(char *buf, size_t size);
     virtual int peek() { return iClient->peek(); };
     virtual void flush() { iClient->flush(); };
 

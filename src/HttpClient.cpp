@@ -760,6 +760,21 @@ int HttpClient::read(uint8_t *buf, size_t size)
     return ret;
 }
 
+size_t HttpClient::readBytes(char *buf, size_t size)
+{
+    unsigned long timeout = getTimeout();
+    unsigned long timeoutStart = millis();
+    size_t rsize = 0;
+    while(rsize < size && millis() - timeoutStart < timeout) {
+        int ret = read((uint8_t*)&buf[rsize], size - rsize);
+        if (ret >= 0)
+        {
+          rsize += ret;
+        }
+    }
+    return rsize;
+}
+
 int HttpClient::readHeader()
 {
     char c = read();
